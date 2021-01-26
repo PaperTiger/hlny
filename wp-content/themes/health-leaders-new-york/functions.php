@@ -1,8 +1,29 @@
 <?php
-define('CRB_THEME_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+use Carbon_Fields\Container;
+use Carbon_Fields\Field;
+
+
+add_action( 'carbon_fields_register_fields', 'crb_attach_theme_options' );
+add_action('carbon_after_register_fields', 'crb_attach_theme_help');
+function crb_attach_theme_options() {
+	Container::make( 'theme_options', __( 'Theme Options' ) )
+		->add_fields( array(
+			Field::make( 'text', 'crb_text', 'Text Field' ),
+		) );
+}
+
+add_action( 'after_setup_theme', 'crb_load' );
+/*
+function crb_load() {
+	require_once( 'vendor/autoload.php' );
+	\Carbon_Fields\Carbon_Fields::boot();
+}
+*/
+
+//define('CRB_THEME_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
 
 # Load the debug functions early so they're available for all theme code
-include_once(CRB_THEME_DIR . 'lib/debug.php');
+//include_once(CRB_THEME_DIR . 'lib/debug.php');
 
 # Enqueue JS and CSS assets on the front-end
 add_action('wp_enqueue_scripts', 'crb_wp_enqueue_scripts');
@@ -14,16 +35,16 @@ function crb_wp_enqueue_scripts() {
 
 	# Enqueue Custom JS files
 	# @crb_enqueue_script attributes -- id, location, dependencies, in_footer = false
-	crb_enqueue_script('fullscreener', $template_dir . '/js/jquery.fullscreener.js', array('jquery'));
-	crb_enqueue_script('lazyload', $template_dir . '/js/jquery.lazyload.min.js', array('jquery'));
-	crb_enqueue_script('magnific-popup', $template_dir . '/js/jquery.magnific-popup.min.js', array('jquery'));
-	crb_enqueue_script('theme-functions', $template_dir . '/js/functions.js', array('jquery'));
+	wp_enqueue_script('fullscreener', $template_dir . '/js/jquery.fullscreener.js', array('jquery'));
+	wp_enqueue_script('lazyload', $template_dir . '/js/jquery.lazyload.min.js', array('jquery'));
+	wp_enqueue_script('magnific-popup', $template_dir . '/js/jquery.magnific-popup.min.js', array('jquery'));
+	wp_enqueue_script('theme-functions', $template_dir . '/js/functions.js', array('jquery'));
 
 	# Enqueue Custom CSS files
 	# @crb_enqueue_style attributes -- id, location, dependencies, media = all
-	crb_enqueue_style('magnific-popup', $template_dir . '/css/magnific-popup.css');
-	crb_enqueue_style('fonts', $template_dir . '/css/fonts.css');
-	crb_enqueue_style('theme-styles', $template_dir . '/style.css');
+	wp_enqueue_script('magnific-popup', $template_dir . '/css/magnific-popup.css');
+	wp_enqueue_script('fonts', $template_dir . '/css/fonts.css');
+	wp_enqueue_script('theme-styles', $template_dir . '/style.css');
 
 	# Enqueue Comments JS file
 	if (is_singular()) {
@@ -45,6 +66,7 @@ function crb_admin_enqueue_scripts() {
 	# crb_enqueue_style('theme-admin-styles', $template_dir . '/css/admin-style.css');
 }
 
+/*
 # Attach Custom Post Types and Custom Taxonomies
 add_action('init', 'crb_attach_post_types_and_taxonomies', 0);
 function crb_attach_post_types_and_taxonomies() {
@@ -54,8 +76,8 @@ function crb_attach_post_types_and_taxonomies() {
 	# Attach Custom Taxonomies
 	include_once(CRB_THEME_DIR . 'options/taxonomies.php');
 }
-
 add_action('after_setup_theme', 'crb_setup_theme');
+*/
 
 # To override theme setup process in a child theme, add your own crb_setup_theme() to your child theme's
 # functions.php file.
@@ -112,9 +134,6 @@ if (!function_exists('crb_setup_theme')) {
 		# Add Actions
 		add_action('widgets_init', 'crb_widgets_init');
 
-		add_action('carbon_register_fields', 'crb_attach_theme_options');
-		add_action('carbon_after_register_fields', 'crb_attach_theme_help');
-
 		# Add Filters
 		add_filter('excerpt_more', 'crb_excerpt_more');
 		add_filter('excerpt_length', 'crb_excerpt_length', 999);
@@ -157,7 +176,7 @@ function crb_get_default_sidebar_options() {
 		'after_title'   => '</h6>',
 	);
 }
-
+/*
 function crb_attach_theme_options() {
 	# Attach fields
 	include_once(CRB_THEME_DIR . 'options/theme-options.php');
@@ -168,6 +187,7 @@ function crb_attach_theme_help() {
 	# Theme Help needs to be after options/theme-options.php
 	include_once(CRB_THEME_DIR . 'lib/theme-help/theme-readme.php');
 }
+*/
 
 function crb_excerpt_more() {
 	return '...';
