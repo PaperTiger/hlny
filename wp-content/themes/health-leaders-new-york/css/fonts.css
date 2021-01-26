@@ -1,0 +1,90 @@
+@font-face {
+    font-family: 'graphikextralight';
+    src: url('fonts/graphikextralight.eot');
+    src: url('fonts/graphikextralight.eot') format('embedded-opentype'),
+         url('fonts/graphikextralight.woff2') format('woff2'),
+         url('fonts/graphikextralight.woff') format('woff'),
+         url('fonts/graphikextralight.ttf') format('truetype'),
+         url('fonts/graphikextralight.svg#graphikextralight') format('svg');
+}
+
+@font-face {
+    font-family: 'graphikblackitalic';
+    src: url('fonts/graphikblackitalic.eot');
+    src: url('fonts/graphikblackitalic.eot') format('embedded-opentype'),
+         url('fonts/graphikblackitalic.woff2') format('woff2'),
+         url('fonts/graphikblackitalic.woff') format('woff'),
+         url('fonts/graphikblackitalic.ttf') format('truetype'),
+         url('fonts/graphikblackitalic.svg#graphikblackitalic') format('svg');
+}
+
+@font-face {
+    font-family: 'graphiklight';
+    src: url('fonts/graphiklight.eot');
+    src: url('fonts/graphiklight.eot') format('embedded-opentype'),
+         url('fonts/graphiklight.woff2') format('woff2'),
+         url('fonts/graphiklight.woff') format('woff'),
+         url('fonts/graphiklight.ttf') format('truetype'),
+         url('fonts/graphiklight.svg#graphiklight') format('svg');
+}
+
+@font-face {
+    font-family: 'graphikmedium';
+    src: url('fonts/graphikmedium.eot');
+    src: url('fonts/graphikmedium.eot') format('embedded-opentype'),
+         url('fonts/graphikmedium.woff2') format('woff2'),
+         url('fonts/graphikmedium.woff') format('woff'),
+         url('fonts/graphikmedium.ttf') format('truetype'),
+         url('fonts/graphikmedium.svg#graphikmedium') format('svg');
+}
+
+@font-face {
+    font-family: 'graphikreg';
+    src: url('fonts/graphikreg.eot');
+    src: url('fonts/graphikreg.eot') format('embedded-opentype'),
+         url('fonts/graphikreg.woff2') format('woff2'),
+         url('fonts/graphikreg.woff') format('woff'),
+         url('fonts/graphikreg.ttf') format('truetype'),
+         url('fonts/graphikreg.svg#graphikreg') format('svg');
+}
+
+@font-face {
+    font-family: 'graphiksemibold';
+    src: url('fonts/graphiksemibold.eot');
+    src: url('fonts/graphiksemibold.eot') format('embedded-opentype'),
+         url('fonts/graphiksemibold.woff2') format('woff2'),
+         url('fonts/graphiksemibold.woff') format('woff'),
+         url('fonts/graphiksemibold.ttf') format('truetype'),
+         url('fonts/graphiksemibold.svg#graphiksemibold') format('svg');
+}
+
+@font-face {
+    font-family: 'graphikbold';
+    src: url('fonts/graphikbold.eot');
+    src: url('fonts/graphikbold.eot?#iefix') format('embedded-opentype'),
+         url('fonts/graphikbold.woff') format('woff'),
+         url('fonts/graphikbold.ttf') format('truetype'),
+         url('fonts/graphikbold.svg#graphikbold') format('svg');
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'HelveticaBold';
+    src: url('fonts/HelveticaBold.eot');
+    src: url('fonts/HelveticaBold.eot') format('embedded-opentype'),
+         url('fonts/HelveticaBold.woff2') format('woff2'),
+         url('fonts/HelveticaBold.woff') format('woff'),
+         url('fonts/HelveticaBold.ttf') format('truetype'),
+         url('fonts/HelveticaBold.svg#HelveticaBold') format('svg');
+}
+
+@font-face {
+    font-family: 'FranklinGothic-Heavy';
+    src: url('fonts/FranklinGothic-Heavy.eot');
+    src: url('fonts/FranklinGothic-Heavy.eot?#iefix') format('embedded-opentype'),
+         url('fonts/FranklinGothic-Heavy.woff') format('woff'),
+         url('fonts/FranklinGothic-Heavy.ttf') format('truetype'),
+         url('fonts/FranklinGothic-Heavy.svg#FranklinGothic-Heavy') format('svg');
+    font-style: normal;
+    font-weight: normal;
+}
