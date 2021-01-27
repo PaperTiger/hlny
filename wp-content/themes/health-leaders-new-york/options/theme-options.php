@@ -1,57 +1,57 @@
 <?php
 
-$options[] = Carbon_Field::factory('separator', 'header');
-$options[] = Carbon_Field::factory('text', 'crb_login_link', __('Top Link', 'crb'))
+$options[] = Container::make('separator', 'header');
+$options[] = Container::make('text', 'crb_login_link', __('Top Link', 'crb'))
 	->set_default_value('#');
-$options[] = Carbon_Field::factory('text', 'crb_login_text', __('Top Link Text', 'crb'))
+$options[] = Container::make('text', 'crb_login_text', __('Top Link Text', 'crb'))
 	->set_default_value('');
-$options[] = Carbon_Field::factory('text', 'crb_become_member_link', __('Become a Member link', 'crb'))
+$options[] = Container::make('text', 'crb_become_member_link', __('Become a Member link', 'crb'))
 	->set_default_value('#');
-$options[] = Carbon_Field::factory('attachment', 'crb_default_top_image', __('Default Top Image', 'crb'))
+$options[] = Container::make('attachment', 'crb_default_top_image', __('Default Top Image', 'crb'))
 	->help_text('This image will be displayed by default on the top of the page ( if the page does not have a Featured image uploaded ).');
 
 $social_links = crb_get_contact_links();
-$options[] = Carbon_Field::factory('separator', 'social_networks_links');
+$options[] = Container::make('separator', 'social_networks_links');
 foreach ( $social_links as $value => $default ) {
-	$options[] = Carbon_Field::factory('text', 'crb_' . $value. '_link', ucfirst($value . ' Link'))
+	$options[] = Container::make('text', 'crb_' . $value. '_link', ucfirst($value . ' Link'))
 		->set_default_value($default);
 }
 
 /* Pages Section  */
-$options[] = Carbon_Field::factory('separator', 'crb_pages_section', __('Pages Section', 'crb'));
-$options[] = Carbon_Field::factory('select', 'crb_newsletters_page', __('Newsletters Page', 'crb'))
+$options[] = Container::make('separator', 'crb_pages_section', __('Pages Section', 'crb'));
+$options[] = Container::make('select', 'crb_newsletters_page', __('Newsletters Page', 'crb'))
 	->add_options(call_user_func_array('crb_get_all_cpt_entries', array('page')));
-$options[] = Carbon_Field::factory('select', 'crb_contact_page', __('Contact Page', 'crb'))
+$options[] = Container::make('select', 'crb_contact_page', __('Contact Page', 'crb'))
 	->add_options(call_user_func_array('crb_get_all_cpt_entries', array('page')));
-$options[] = Carbon_Field::factory('select', 'crb_upcoming_events_page', __('Upcoming Events Page', 'crb'))
+$options[] = Container::make('select', 'crb_upcoming_events_page', __('Upcoming Events Page', 'crb'))
 	->add_options(call_user_func_array('crb_get_all_cpt_entries', array('page')));
-$options[] = Carbon_Field::factory('select', 'crb_past_events_page', __('Past Events Page', 'crb'))
+$options[] = Container::make('select', 'crb_past_events_page', __('Past Events Page', 'crb'))
 	->add_options(call_user_func_array('crb_get_all_cpt_entries', array('page')));
-$options[] = Carbon_Field::factory('select', 'crb_sponsorship_page', __('Sponsorship Page', 'crb'))
+$options[] = Container::make('select', 'crb_sponsorship_page', __('Sponsorship Page', 'crb'))
 	->add_options(call_user_func_array('crb_get_all_cpt_entries', array('page')));
-$options[] = Carbon_Field::factory('gravity_form', 'crb_sponsorship_form', __('Sponsorship Form', 'crb'));
+$options[] = Container::make('gravity_form', 'crb_sponsorship_form', __('Sponsorship Form', 'crb'));
 
 /* Sidebars Section */
-$options[] = Carbon_Field::factory('separator', 'crb_sidebars_section', __('Sidebars Section', 'crb'));
-$options[] = Carbon_Field::factory('sidebar', 'crb_single_post_sidebar', __('Single Post Sidebar', 'crb'));
-$options[] = Carbon_Field::factory('sidebar', 'crb_single_event_sidebar', __('Single Event Sidebar', 'crb'));
+$options[] = Container::make('separator', 'crb_sidebars_section', __('Sidebars Section', 'crb'));
+$options[] = Container::make('sidebar', 'crb_single_post_sidebar', __('Single Post Sidebar', 'crb'));
+$options[] = Container::make('sidebar', 'crb_single_event_sidebar', __('Single Event Sidebar', 'crb'));
 
-$options[] = Carbon_Field::factory('separator', 'footer');
-$options[] = Carbon_Field::factory('rich_text', 'crb_footer_text', __('Footer Text'))
+$options[] = Container::make('separator', 'footer');
+$options[] = Container::make('rich_text', 'crb_footer_text', __('Footer Text'))
 	->set_default_value('');
 
-$options[] = Carbon_Field::factory('separator', 'misc');
-$options[] = Carbon_Field::factory('header_scripts', 'header_script');
-$options[] = Carbon_Field::factory('footer_scripts', 'footer_script');
+$options[] = Container::make('separator', 'misc');
+$options[] = Container::make('header_scripts', 'header_script');
+$options[] = Container::make('footer_scripts', 'footer_script');
 
-Carbon_Container::factory('theme_options', 'Theme Options')
+Container::make('theme_options', 'Theme Options')
   	->add_fields($options);
 
 if ( carbon_twitter_widget_registered() ) {
-	Carbon_Container::factory('theme_options', 'Twitter Settings')
+	Container::make('theme_options', 'Twitter Settings')
 		->set_page_parent(__('Theme Options', 'crb'))
 		->add_fields(array(
-			Carbon_Field::factory('html', 'crb_twitter_settings_html')
+			Container::make('html', 'crb_twitter_settings_html')
 				->set_html('
 					<div style="position: relative; background: #fff; border: 1px solid #ccc; padding: 10px;">
 						<h4><strong>' . __('Twitter API requires a Twitter application for communication with 3rd party sites. Here are the steps for creating and setting up a Twitter application:', 'crb') . '</strong></h4>
@@ -65,13 +65,13 @@ if ( carbon_twitter_widget_registered() ) {
 						</ol>
 					</div>
 				'),
-			Carbon_Field::factory('text', 'crb_twitter_consumer_key', __('Consumer Key', 'crb'))
+			Container::make('text', 'crb_twitter_consumer_key', __('Consumer Key', 'crb'))
 				->set_default_value(''),
-			Carbon_Field::factory('text', 'crb_twitter_consumer_secret', __('Consumer Secret', 'crb'))
+			Container::make('text', 'crb_twitter_consumer_secret', __('Consumer Secret', 'crb'))
 				->set_default_value(''),
-			Carbon_Field::factory('text', 'crb_twitter_oauth_access_token', __('Access Token', 'crb'))
+			Container::make('text', 'crb_twitter_oauth_access_token', __('Access Token', 'crb'))
 				->set_default_value(''),
-			Carbon_Field::factory('text', 'crb_twitter_oauth_access_token_secret', __('Access Token Secret', 'crb'))
+			Container::make('text', 'crb_twitter_oauth_access_token_secret', __('Access Token Secret', 'crb'))
 				->set_default_value(''),
 		));
 }
