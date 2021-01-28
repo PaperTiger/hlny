@@ -331,43 +331,81 @@ function crb_attach_post_meta() {
 				))
 		));
 	
-	/* Full Width Page Settings */
-	Container::make('post_meta', __('Full Width Page Settings', 'crb'))
-		->show_on_post_type('page')
-		->show_on_template('templates/full-width.php')
-		->add_fields(array(
-			Field::make('checkbox', 'crb_full_width_enable_tabs', __('Enable Tabs?', 'crb')),
-			Field::make('complex', 'crb_full_width_sections', __('Sections', 'crb'))
-	
-				->setup_labels(array(
-					'singular_name' => 'Section',
-					'plural_name'   => 'Sections'
-				))
-	
-				->add_fields(array(
-					Field::make('separator', 'crb_right_image_section', __('Right Image Section', 'crb')),
-					Field::make('complex', 'crb_right_image_section_complex', __('Sections', 'crb'))
-					->add_fields( array(
+		/* Full Width Page Settings */
+		Container::make('post_meta', __('Full Width Page Settings', 'crb'))
+			->show_on_post_type('page')
+			->show_on_template('templates/full-width.php')
+			->add_fields(array(
+				Field::make('checkbox', 'crb_full_width_enable_tabs', __('Enable Tabs?', 'crb')),
+				Field::make('complex', 'crb_full_width_sections', __('Sections', 'crb'))
+
+					->setup_labels(array(
+						'singular_name' => 'Section',
+						'plural_name'   => 'Sections'
+					))
+
+					->add_fields('right_image_section', array(
+						Field::make('separator', 'crb_right_image_section_section', __('Right Image Section', 'crb')),
 						Field::make('text', 'tab_title', __('Tab Title', 'crb'))
 							->help_text('Used for the title of the Tab if "Enable Tabs?" is checked.'),
 						Field::make('text', 'left_title', __('Left Text Title', 'crb')),
 						Field::make('rich_text', 'left_text', __('Left Text', 'crb')),
 						Field::make('image', 'right_image', __('Right Image', 'crb')),			
 					))
-				))
-						
-				->add_fields(array(
-					Field::make('separator', 'crb_full_width_text_section', __('Full Width Text', 'crb')),
-					Field::make('complex', 'crb_full_width_text_section_complex', __('Sections', 'crb'))
-					->add_fields( array(
+
+					->add_fields('full_width_text', array(
+						Field::make('separator', 'crb_full_width_text_section', __('Full Width Text', 'crb')),
 						Field::make('text', 'tab_title', __('Tab Title', 'crb'))
-						->help_text('Used for the title of the Tab if "Enable Tabs?" is checked.'),
+							->help_text('Used for the title of the Tab if "Enable Tabs?" is checked.'),
 						Field::make('rich_text', 'full_width_text', __('Text', 'crb'))
 					))
-				))
-	
-		));
-	
+
+					->add_fields('left_image_section', array(
+						Field::make('separator', 'crb_left_image_section_section', __('Left Image Section', 'crb')),
+						Field::make('text', 'tab_title', __('Tab Title', 'crb'))
+							->help_text('Used for the title of the Tab if "Enable Tabs?" is checked.'),
+						Field::make('image', 'left_image', __('Left Image', 'crb')),
+						Field::make('text', 'right_title', __('Right Title', 'crb')),
+						Field::make('text', 'right_subtitle', __('Right Subtitle', 'crb')),
+						Field::make('rich_text', 'right_text', __('Right Text', 'crb')),
+						
+					))
+
+					->add_fields('gallery_with_description', array(
+						Field::make('separator', 'crb_gallery_with_description_section', __('Gallery with description', 'crb')),
+						Field::make('text', 'tab_title', __('Tab Title', 'crb'))
+							->help_text('Used for the title of the Tab if "Enable Tabs?" is checked.'),
+						Field::make('text', 'gallery_title', __('Title', 'crb'))
+							->set_default_value('Sub-Heading with gallery'),
+						Field::make('textarea', 'gallery_description', __('Description', 'crb')),
+						Field::make('complex', 'gallery_images', __('Gallery Images', 'crb'))
+							->setup_labels(array(
+								'singular_name' => 'Image',
+								'plural_name'   => 'Images'
+							))
+							->add_fields(array(
+								Field::make('image', 'image', __('Upload Image', 'crb'))
+									->set_required(true)
+							))
+					))
+
+					->add_fields('gallery_images', array(
+						Field::make('separator', 'crb_gallery_images_section', __('Gallery Images', 'crb')),
+						Field::make('text', 'tab_title', __('Tab Title', 'crb'))
+							->help_text('Used for the title of the Tab if "Enable Tabs?" is checked.'),
+						Field::make('complex', 'gallery_images', __('Gallery Images', 'crb'))
+							->setup_labels(array(
+								'singular_name' => 'Image',
+								'plural_name'   => 'Images'
+							))
+							->add_fields(array(
+								Field::make('image', 'image', __('Upload Image', 'crb'))
+									->set_required(true)
+							))
+					))
+			));
+
+
 	/* Sponsor Settings */
 	Container::make('post_meta', __('Sponsor Settings', 'crb'))
 		->show_on_post_type('crb_sponsor')
@@ -434,11 +472,34 @@ function crb_attach_theme_options() {
 		
 		Field::make('separator', 'misc'),
 		Field::make('header_scripts', 'header_script'),
-		Field::make('footer_scripts', 'footer_script'),		
+		Field::make('footer_scripts', 'footer_script'),	
+		
+		Field::make('separator', 'crb_twitter_settings_group', __('Twiiter Settings', 'crb')),
+		Field::make('html', 'crb_twitter_settings_html')
+		->set_html('
+			<div style="position: relative; background: #fff; border: 1px solid #ccc; padding: 10px;">
+				<h4><strong>' . __('Twitter API requires a Twitter application for communication with 3rd party sites. Here are the steps for creating and setting up a Twitter application:', 'crb') . '</strong></h4>
+				<ol style="font-weight: normal;">
+					<li>' . sprintf(__('Go to <a href="%1$s" target="_blank">%1$s</a> and log in, if necessary.', 'crb'), 'https://dev.twitter.com/apps/new') . '</li>
+					<li>' . __('Supply the necessary required fields and accept the <strong>Terms of Service</strong>. <strong>Callback URL</strong> field may be left empty.', 'crb') . '</li>
+					<li>' . __('Submit the form.', 'crb') . '</li>
+					<li>' . __('On the next screen, click on the <strong>Keys and Access Tokens</strong> tab.', 'crb') . '</li>
+					<li>' . __('Scroll down to <strong>Your access token</strong> section and click the <strong>Create my access token</strong> button.', 'crb') . '</li>
+					<li>' . __('Copy the following fields: <strong>Consumer Key, Consumer Secret, Access Token, Access Token Secret</strong> to the below fields.', 'crb') . '</li>
+				</ol>
+			</div>
+		'),
+		Field::make('text', 'crb_twitter_consumer_key', __('Consumer Key', 'crb'))
+		->set_default_value(''),
+		Field::make('text', 'crb_twitter_consumer_secret', __('Consumer Secret', 'crb'))
+		->set_default_value(''),
+		Field::make('text', 'crb_twitter_oauth_access_token', __('Access Token', 'crb'))
+		->set_default_value(''),
+		Field::make('text', 'crb_twitter_oauth_access_token_secret', __('Access Token Secret', 'crb'))
+		->set_default_value('')		
 	) );
+
 }
-
-
 
 
 # Load the debug functions early so they're available for all theme code
